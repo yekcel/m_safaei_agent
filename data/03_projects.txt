@@ -1,0 +1,13 @@
+**Project 1: Offline Institutional AI Agent  **
+Description: Designed and deployed a fully-offline, privacy-first AI agent running locally on university infrastructure using quantized Llama & Aya models (via Ollama/llama.cpp).
+- Designed and deployed Iran’s first 100% offline, privacy-first institutional AI agent. The agent uses quantized Llama and Aya models, running on university GPU servers (Ollama + llama.cpp). It maintains zero external data transmission, ensuring full compliance with institutional privacy policies.
+- The secure RAG pipeline provides read-only access to sensitive data (faculty research, student records, administrative systems).
+- Functions include automated statistical reporting, alerts, and personalized student services (course recommendations, scholarship alerts, dorm queries, exam reminders) for 18,000+ users.
+
+** Deep Learning Research Project (Dental Diagnostics)
+Deep Learning for Automated Dental Anomaly Detection
+- Developed a Computer Vision pipeline using Deep Learning models (e.g., Convolutional Neural Networks - CNNs) to automatically classify and localize dental anomalies, restorations, and caries (decay) in periapical and panoramic X-ray images.
+
+** Chemical Plant Quality Control Management System
+Platform: Web Application (Django & Python)
+- Architected and developed a comprehensive Quality Control (QC) Data Management System for a chemical manufacturing plant using Python and Django, replacing manual spreadsheet tracking.
