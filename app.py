@@ -3,6 +3,7 @@ import os
 import logging
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.google_genai import GoogleGenAI
+from llama_index.core.node_parser import SentenceSplitter
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,85 +13,47 @@ os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
 
 
 @st.cache_resource
-def setup_rag_engine():
-    """Reads data, indexes it, and prepares the query engine."""    
+def setup_rag_engine():        
     global GEMINI_API_KEY
     
     st.info("Loading resume data and indexing...")
     logger.info("Starting RAG setup process...")
     try:
-     
-        try:
-            logger.info("STEP 1: Attempting to load documents from 'data' folder.")
-            documents = SimpleDirectoryReader("data").load_data()
-            logger.info(f"Loaded {len(documents)} documents successfully.")
-        except FileNotFoundError:
-            raise FileNotFoundError("Data folder not found or files are missing.")
-        except Exception as e:
-            raise Exception(f"Error during document loading: {e}")
-        # ----------------------------------------------------------------------------------       
-      
+        if not GEMINI_API_KEY:
+            st.error("Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
+            return None
        
-        # llm = GoogleGenAI(model="gemini-2.5-flash", api_key=API_KEY_VALUE)
-        # embed_model = GoogleGenAI(
-        #     model="text-embedding-004", 
-        #     api_key=API_KEY_VALUE,
-        #     embed_model=True          
-        # )
-       
-        # index = VectorStoreIndex.from_documents(documents, llm=llm)
-        # embed_model = GoogleGenAI(
-        #     model="text-embedding-004",
-        #     api_key=API_KEY_VALUE,
-        #     embed_model=True         
-        # )
-        # ----------------------------------------------------------------------------------
-
-      
-        # index = VectorStoreIndex.from_documents(
-        #     documents, 
-        #     llm=llm,             
-        #     embed_model=embed_model 
-        # )
-        try:
-            logger.info("STEP 2: Configuring GoogleGenAI models.")
-            
-           
-            llm = GoogleGenAI(model="gemini-2.5-flash", api_key=GEMINI_API_KEY)
-            
-          
-            embed_model = GoogleGenAI(
-                model="text-embedding-004", 
-                api_key=GEMINI_API_KEY,
-                embed_model=True          
-            )
-            logger.info("LLM and Embedding models configured successfully.")
-            
-        except Exception as e:
-            raise Exception(f"Error during model configuration: {e}")
-
+        logger.info("STEP 1: Attempting to load documents from 'data' folder.")
+        documents = SimpleDirectoryReader("data").load_data()
+        logger.info(f"Loaded {len(documents)} documents successfully.")
+        # ----------------------------------------------------------------------------------  
+        logger.info("STEP 1.5: Configuring Text Splitter for API stability.")
+        text_splitter = SentenceSplitter(chunk_size=2048, chunk_overlap=20)
+        nodes = text_splitter.get_nodes_from_documents(documents)
+        logger.info(f"Documents split into {len(nodes)} chunks.")
+        
+        logger.info("STEP 2: Configuring GoogleGenAI models.")
+        llm = GoogleGenAI(model="gemini-2.5-flash", api_key=GEMINI_API_KEY)
+        embed_model = GoogleGenAI(
+            model="text-embedding-004", 
+            api_key=GEMINI_API_KEY,
+            embed_model=True          
+        )
+        logger.info("LLM and Embedding models configured successfully.")
         # ----------------------------------------------------------------------------------
         try:
-            logger.info("STEP 3: Starting VectorStoreIndex creation (Chunking and Embedding).")
-            # این خط، نقطه اصلی مصرف منابع و احتمال خطا است
-            index = VectorStoreIndex.from_documents(
-                documents, 
+            logger.info("STEP 3: Starting VectorStoreIndex creation (Chunking and Embedding).")          
+            index = VectorStoreIndex(
+                nodes=nodes, 
                 llm=llm,              
                 embed_model=embed_model 
             )
             logger.info("VectorStoreIndex created successfully.")
             
         except Exception as e:
+            logger.error(f"FATAL ERROR IN STEP 3 (Indexing): {type(e).__name__} - {e}")
             raise Exception(f"Error during Indexing/Embedding: {e}")
-      
-        # query_engine = index.as_query_engine(
-        #     llm=llm,
-        #     streaming=True # For real-time response display
-        # )
-        
-        # st.success("Data loaded successfully. Ready to answer questions.")
-        # return query_engine
-        # ----------------------------------------------------------------------------------
+                  
         try:
             logger.info("STEP 4: Creating Query Engine.")
             query_engine = index.as_query_engine(
@@ -105,12 +68,12 @@ def setup_rag_engine():
         st.success("Data loaded successfully. Ready to answer questions.")
         return query_engine
         
-    except FileNotFoundError:
-        st.error("Error: The 'data' folder or resume files were not found. Please ensure your project structure is correct.")
+   except Exception as e:
+        error_message = f"An error occurred during RAG setup: {e}"
+        logger.error(error_message)
+        st.error(error_message)
         return None
-    except Exception as e:
-        st.error(f"An error occurred during RAG setup: {e}")
-        return None
+      
 
 
 # ----------------------------------------------------------------------------------
