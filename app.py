@@ -6,8 +6,8 @@ from llama_index.llms.google_genai import GoogleGenAI
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-os.environ["GEMINI_API_KEY"] = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
 
 
