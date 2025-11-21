@@ -109,21 +109,14 @@ if query_engine:
             
            
             response = query_engine.query(user_query)
+            st.subheader("✅ AI Assistant's Answer:")           
             
-           
-            st.subheader("✅ AI Assistant's Answer:")
-            
-            
-            st.info(response.response)
-
-       
+            st.info(response)       
         if response.source_nodes:
-            st.subheader("📚 Source Context Used:")
-            
+            st.subheader("📚 Source Context Used:")          
            
             source_text = response.source_nodes[0].get_text()
-            st.code(source_text[:500] + "...", language="markdown")
-            
+            st.code(source_text[:500] + "...", language="markdown")           
             
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
