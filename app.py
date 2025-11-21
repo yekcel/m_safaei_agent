@@ -15,6 +15,7 @@ os.environ["GEMINI_API_KEY"] = os.getenv("GEMINI_API_KEY")
 def setup_rag_engine():
     """Reads data, indexes it, and prepares the query engine."""    
     global GEMINI_API_KEY
+    
     st.info("Loading resume data and indexing...")
     logger.info("Starting RAG setup process...")
     try:
