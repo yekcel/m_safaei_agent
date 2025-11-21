@@ -4,6 +4,7 @@ import logging
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.core.node_parser import SentenceSplitter
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -31,15 +32,15 @@ def setup_rag_engine():
         text_splitter = SentenceSplitter(chunk_size=2048, chunk_overlap=20)
         nodes = text_splitter.get_nodes_from_documents(documents)
         logger.info(f"Documents split into {len(nodes)} chunks.")
-        
-        logger.info("STEP 2: Configuring GoogleGenAI models.")
-        llm = GoogleGenAI(model="gemini-2.5-flash", api_key=GEMINI_API_KEY)
-        embed_model = GoogleGenAI(
-            model="text-embedding-004", 
-            api_key=GEMINI_API_KEY,
-            embed_model=True          
-        )
-        logger.info("LLM and Embedding models configured successfully.")
+        try:
+            logger.info("STEP 2: Configuring GoogleGenAI models.")
+            llm = GoogleGenAI(model="gemini-2.5-flash", api_key=GEMINI_API_KEY)
+            embed_model = HuggingFaceEmbedding(
+                model_name="BAAI/bge-small-en-v1.5"         
+            )
+            logger.info("LLM configured (Gemini) and Embedding model configured (Local).")            
+        except Exception as e:
+            raise Exception(f"Error during model configuration: {e}")
         # ----------------------------------------------------------------------------------
         try:
             logger.info("STEP 3: Starting VectorStoreIndex creation (Chunking and Embedding).")          
