@@ -2,19 +2,24 @@
 
 ## AI Agents & LLMs
 - LangChain, LlamaIndex, RAG (Retrieval-Augmented Generation), tool-calling, Ollama, llama.cpp.
-- Experience with quantized Llama-3 and Aya 23 models.
-- Whisper (speech recognition), local vector DBs (vector stores).
+- Experience with quantized Google Gemini, Llama and Aya models.
+- on-premise GPU deployment.
 
 ## Backend Development
-- Python (Expert: FastAPI, Django), PHP/Laravel, Node.js, microservices architecture.
+- Python (Expert: FastAPI, Django), PHP/Laravel, microservices architecture.
 
 ## Frontend Development
-- React, TypeScript, building real-time applications.
+- React, JavaScript, HTML, Bootstrap, CSS,  building real-time applications.
+
+## libreries
+- RAG, LLM Orchestration (LangChain), PyTorch, TensorFlow/Keras.
+- Pandas, NumPy, PYQt,
+- OpenCV (cv2), Scikit-image, Matplotlib, Seaborn
 
 ## Data & Infrastructure
-- Databases: PostgreSQL, vector stores.
-- Infrastructure: Docker, Linux, on-premise GPU deployment.
+- Databases: SQL Server, MySQL, Oracle, PostgreSQL, MongoDB.
+- Docker, CI/CD pipeline, Cloud Platforms, Git, Linux, Network.
 - ETL (Extract, Transform, Load): Designed data platform handling >1 billion records with 85% faster ETL pipelines.
 
 ## Testing & Automation
-- Full E2E UI automation suites with Cypress, Selenium, Playwright.
+- Full E2E UI automation suites with Cypress, Selenium.
