@@ -1,0 +1,14 @@
+**Other Experience and Education**
+
+**Chouette Soft (Remote Consultant, 2023 – Present)**
+Role: Developed end-to-end UI automation suites using Cypress and Selenium.
+
+**PadTadbir Co. (Part-time Data Engineer, 2017 – 2023)**
+Role: Architected Iran’s first large-scale paperless retail market research platform, serving over 50 premium brands.
+
+**Education:**
+- M.Sc. Artificial Intelligence, Semnan University.
+- B.Sc. Computer Software Engineering, Bu-Ali Sina University.
+
+**Lecturing Experience:**
+- Taught undergraduate courses including Database Design, Operating Systems Lab, and Network Lab.
