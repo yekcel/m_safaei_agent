@@ -1,0 +1,15 @@
+**EXPERIENCE: Semnan University (Senior Full-Stack & AI Engineer, 2009 – 2024)**
+
+**Project 1: Offline Institutional AI Agent – UniRAG (2023 – Present)**
+Role: Lead Developer.
+Description: Designed and deployed Iran’s first 100% offline, privacy-first institutional AI agent. The agent uses quantized Llama-3 and Aya 23 models, running on university GPU servers (Ollama + llama.cpp). It maintains zero external data transmission, ensuring full compliance with institutional privacy policies.
+
+**UniRAG Capabilities and Technology:**
+- The secure RAG pipeline provides read-only access to sensitive data (faculty research, student records, administrative systems).
+- Functions include automated statistical reporting, deadline alerts, and personalized student services (course recommendations, scholarship alerts, dorm queries, exam reminders) for 18,000+ users.
+
+**Key Digital Transformation Achievements:**
+- Automated 5,000+ annual paper-based tasks through new research and grant management systems.
+- Developed a successful national-model Learning Management System (LMS) during COVID-19, which was licensed to multiple external government entities, generating revenue for the university.
+- Architectural design of a high-performance data platform capable of handling over 1 billion records. Optimized ETL pipelines, resulting in an 85% speed increase.
+- Automation tools were built to generate statistical reports, saving over 2,000 man-hours annually.
