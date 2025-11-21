@@ -68,7 +68,7 @@ def setup_rag_engine():
         st.success("Data loaded successfully. Ready to answer questions.")
         return query_engine
         
-   except Exception as e:
+    except Exception as e:
         error_message = f"An error occurred during RAG setup: {e}"
         logger.error(error_message)
         st.error(error_message)
