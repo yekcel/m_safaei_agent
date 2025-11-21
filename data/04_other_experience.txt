@@ -1,10 +1,11 @@
 **Other Experience and Education**
 
 **Chouette Soft (Remote Consultant, 2023 – Present)**
-Role: Developed end-to-end UI automation suites using Cypress and Selenium.
+- Developed end-to-end UI automation suites using Cypress and Selenium.
+- Implemented a Federated Learning server for training models for dental purpose.
 
 **PadTadbir Co. (Part-time Data Engineer, 2017 – 2023)**
-Role: Architected Iran’s first large-scale paperless retail market research platform, serving over 50 premium brands.
+- Architected Iran’s first large-scale paperless retail market research platform, serving over 50 premium brands. https://retailreport.ir/
 -	Designed and optimized data pipelines and SQL queries for datasets exceeding 1B records, reducing processing time by up to 85%.
 -	Delivered valuable data to +50 high-end brands nationwide through diverse channels, including the company's website and the developed Power BI server.
 -	Developed a web application as a reseller powered by analyzed data for maximizing benefits for retailers.
@@ -13,5 +14,11 @@ Role: Architected Iran’s first large-scale paperless retail market research pl
 - M.Sc. Artificial Intelligence, Semnan University.
 - B.Sc. Computer Software Engineering, Bu-Ali Sina University.
 
-**Lecturing Experience:**
-- Taught undergraduate courses including Database Design, Database Lab, Operating Systems Lab, and Network Lab.
+**some project**
+🧠 Deep Learning Research Project (Dental Diagnostics)
+Deep Learning for Automated Dental Anomaly Detection
+- Developed a Computer Vision pipeline using Deep Learning models (e.g., Convolutional Neural Networks - CNNs) to automatically classify and localize dental anomalies, restorations, and caries (decay) in periapical and panoramic X-ray images.
+
+🏭 Chemical Plant Quality Control Management System
+Platform: Web Application (Django & Python)
+- Architected and developed a comprehensive Quality Control (QC) Data Management System for a chemical manufacturing plant using Python and Django, replacing manual spreadsheet tracking.
