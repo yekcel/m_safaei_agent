@@ -95,14 +95,14 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🤝 AI Assistant for Professional Experiences")
+st.title("🤖 M. Safaei's AI Career Assistant (Gemini-Powered)")
 st.markdown(f"**This is the AI assistant for M Safaei's resume.**")
 st.markdown("Ask any question about my skills, projects, and professional background below.")
 st.divider()
 
 # ----------------------------------------------------------------------------------
 if query_engine:
-    user_query = st.text_input("Ask a question (e.g., What are your core Python skills? Describe your largest project.):")
+    user_query = st.text_input("Ask a question (e.g., What are your core Python skills? Describe your AI projects.):")
 
     if user_query:
         with st.spinner("Searching resume and generating response..."):
