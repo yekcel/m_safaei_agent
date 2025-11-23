@@ -73,7 +73,8 @@ def setup_rag_engine():
             logger.info("STEP 4: Creating Query Engine.")
             query_engine = index.as_query_engine(
                 llm=llm,
-                streaming=True
+                streaming=True,
+                similarity_top_k=4
             )
             logger.info("Query Engine created successfully.")
             
@@ -135,6 +136,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
