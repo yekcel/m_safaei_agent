@@ -1,15 +1,29 @@
 import streamlit as st
 import os
 import logging
+import streamlit as st
+
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2")
+LANGCHAIN_ENDPOINT = os.getenv("LANGCHAIN_ENDPOINT")
+LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
+LANGCHAIN_PROJECT = os.getenv("LANGCHAIN_PROJECT")
+
+
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
+os.environ["LANGCHAIN_TRACING_V2"] = LANGCHAIN_TRACING_V2 if LANGCHAIN_TRACING_V2 else ""
+os.environ["LANGCHAIN_ENDPOINT"] = LANGCHAIN_ENDPOINT if LANGCHAIN_ENDPOINT else ""
+os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY if LANGCHAIN_API_KEY else ""
+os.environ["LANGCHAIN_PROJECT"] = LANGCHAIN_PROJECT if LANGCHAIN_PROJECT else ""
+
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
 SYSTEM_PROMPT_TEXT ="""
 You are Masan Safaei's highly professional and concise AI Career Assistant. Your primary goal is to extract factual information exclusively from the provided 'Context' (Masan Safaei's resume and project details) and answer the user's questions.
@@ -126,7 +140,8 @@ if query_engine:
             response = query_engine.query(user_query)
             st.subheader("✅ AI Assistant's Answer:")           
             
-            st.info(response)       
+            st.info(response)
+            
         if response.source_nodes:
             st.subheader("📚 Source Context Used:")          
            
@@ -136,6 +151,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
