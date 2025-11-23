@@ -23,3 +23,7 @@
 
 ## Testing & Automation
 - Full E2E UI automation suites with Cypress, Selenium.
+
+
+**Soft Skills & Professional Attributes**
+Proficient in software solutions design and algorithmic thinking. Good written and verbal communication. Supportive team member, highly Organized, Flexible, Goal-Oriented, Adaptable, and committed to high-quality service delivery.
