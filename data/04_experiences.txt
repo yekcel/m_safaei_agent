@@ -15,9 +15,10 @@
 - Mobile App Development with Xamarin
 - Create Chart and Report with Telerik and Stimulsoft Report
 
-**Lecturing Experience:**
-- Taught undergraduate courses including Database Design, Database Lab, Operating Systems Lab, and Network Lab.
-- TaughtLinux Kernel Module Programming in Operating Systems La
+**Teaching Experience:**
+- Lecturer at Principal Database Design, Database Lab, OS Lab, and Network Lab courses for undergraduate students.
+- TaughtLinux Kernel Module Programming in Operating Systems Lab.
+(Teaching, Instruction, Academic, Education, Mentoring, Professor, Undergraduate)
 
 **Chouette Soft (Remote Consultant, 2023 – Present)**
 - Developed end-to-end UI automation suites using Cypress and Selenium.
