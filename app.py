@@ -46,7 +46,7 @@ def setup_rag_engine():
             llm = GoogleGenAI(
                 model="gemini-2.5-flash", 
                 api_key=GEMINI_API_KEY,
-                temperature=0.1, 
+                temperature=0.3, 
                 system_instruction=SYSTEM_PROMPT_TEXT 
             )
             embed_model = HuggingFaceEmbedding(
@@ -135,5 +135,6 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
