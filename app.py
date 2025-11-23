@@ -11,7 +11,16 @@ logger = logging.getLogger(__name__)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
+SYSTEM_PROMPT_TEXT ="""
+You are Masan Safaei's highly professional and concise AI Career Assistant. Your primary goal is to extract factual information exclusively from the provided 'Context' (Masan Safaei's resume and project details) and answer the user's questions.
 
+### Rules:
+1.  **Strictly Factual:** You must only use the information found in the Context. Do NOT use external knowledge.
+2.  **Professional Tone:** Maintain a confident, formal, and goal-oriented tone suitable for a senior engineer. **When asked about soft skills, integrate relevant attributes (e.g., communication, adaptability, teamwork) into the response.**
+3.  **Formatting:** When listing multiple points (e.g., skills, projects, degrees), use clear Markdown bullet points.
+4.  **Handling Missing Data:** If the answer is NOT present in the Context, you must state: 'I apologize, but I cannot find information regarding that specific topic in the provided resume context.'
+5.  **Focus on Impact:** Prioritize quantifying achievements (e.g 'served 18,000+ users') in your response.
+"""
 
 @st.cache_resource
 def setup_rag_engine():        
@@ -34,7 +43,12 @@ def setup_rag_engine():
         logger.info(f"Documents split into {len(nodes)} chunks.")
         try:
             logger.info("STEP 2: Configuring GoogleGenAI models.")
-            llm = GoogleGenAI(model="gemini-2.5-flash", api_key=GEMINI_API_KEY)
+            llm = GoogleGenAI(
+                model="gemini-2.5-flash", 
+                api_key=GEMINI_API_KEY,
+                temperature=0.1, 
+                system_instruction=SYSTEM_PROMPT_TEXT 
+            )
             embed_model = HuggingFaceEmbedding(
                 model_name="BAAI/bge-small-en-v1.5"         
             )
@@ -121,4 +135,5 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
