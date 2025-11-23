@@ -5,3 +5,4 @@ llama-index-readers-file
 google-genai
 sentence-transformers
 llama-index-embeddings-huggingface
+langsmith
