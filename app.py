@@ -127,6 +127,7 @@ st.set_page_config(
 st.title("🤖 M. Safaei's AI Career Assistant (Gemini-Powered)")
 st.markdown(f"**This is the AI assistant for M Safaei's resume.**")
 st.markdown("Ask any question about my skills, projects, and professional background .")
+st.markdown("🔗 **Code & Project Structure:**(https://github.com/yekcel/m_safaei_agent)", unsafe_allow_html=True)
 st.divider()
 
 # ----------------------------------------------------------------------------------
@@ -151,6 +152,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
