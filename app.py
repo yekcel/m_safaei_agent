@@ -43,11 +43,11 @@ def setup_rag_engine():
     st.info("Loading resume data and indexing...")
     logger.info("Starting RAG setup process...")
     try:
-        if not GEMINI_API_KEY:
-            st.error("Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
+        if not os.getenv("GEMINI_API_KEY"):
+            st.error("❌ Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
             return None
-        if os.getenv("LANGSMITH_API_KEY") is None:
-            st.error("Error: LANGSMITH_API_KEY not found in Streamlit Secrets. Please configure it.") 
+        if os.getenv("LANGSMITH_TRACING") == "true" and not os.getenv("LANGSMITH_API_KEY"):
+            st.error("❌ Error: LANGSMITH_TRACING is enabled, but LANGSMITH_API_KEY not found in Secrets.") 
             return None
        
         logger.info("STEP 1: Attempting to load documents from 'data' folder.")
@@ -130,7 +130,10 @@ st.set_page_config(
 st.title("🤖 M. Safaei's AI Career Assistant (Gemini-Powered)")
 st.markdown(f"**This is the AI assistant for M Safaei's resume.**")
 st.markdown("Ask any question about my skills, projects, and professional background .")
-st.markdown("🔗 **Code & Project Structure:**(https://github.com/yekcel/m_safaei_agent)", unsafe_allow_html=True)
+st.markdown(
+    "🔗 **Code & Project Structure:** [View GitHub Repository](https://github.com/yekcel/m_safaei_agent)", 
+    unsafe_allow_html=True
+)
 st.divider()
 
 # ----------------------------------------------------------------------------------
@@ -155,6 +158,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
