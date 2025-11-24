@@ -12,17 +12,17 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2")
-LANGCHAIN_ENDPOINT = os.getenv("LANGCHAIN_ENDPOINT")
-LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
-LANGCHAIN_PROJECT = os.getenv("LANGCHAIN_PROJECT")
+LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING")
+LANGSMITH_ENDPOINT = os.getenv("LANGSMITH_ENDPOINT")
+LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT")
 
 
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
-os.environ["LANGCHAIN_TRACING_V2"] = LANGCHAIN_TRACING_V2 if LANGCHAIN_TRACING_V2 else ""
-os.environ["LANGCHAIN_ENDPOINT"] = LANGCHAIN_ENDPOINT if LANGCHAIN_ENDPOINT else ""
-os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY if LANGCHAIN_API_KEY else ""
-os.environ["LANGCHAIN_PROJECT"] = LANGCHAIN_PROJECT if LANGCHAIN_PROJECT else ""
+os.environ["LANGSMITH_TRACING"] = LANGSMITH_TRACING if LANGSMITH_TRACING else ""
+os.environ["LANGSMITH_ENDPOINT"] = LANGSMITH_ENDPOINT if LANGSMITH_ENDPOINT else ""
+os.environ["LANGSMITH_API_KEY"] = LANGSMITH_API_KEY if LANGSMITH_API_KEY else ""
+os.environ["LANGSMITH_PROJECT"] = LANGSMITH_PROJECT if LANGSMITH_PROJECT else ""
 
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
 SYSTEM_PROMPT_TEXT ="""
@@ -151,6 +151,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
