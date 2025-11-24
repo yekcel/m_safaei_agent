@@ -46,6 +46,9 @@ def setup_rag_engine():
         if not GEMINI_API_KEY:
             st.error("Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
             return None
+        if os.getenv("LANGSMITH_API_KEY") is None:
+            st.error("Error: LANGSMITH_API_KEY not found in Streamlit Secrets. Please configure it.") 
+            return None
        
         logger.info("STEP 1: Attempting to load documents from 'data' folder.")
         documents = SimpleDirectoryReader("data").load_data()
@@ -152,6 +155,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
