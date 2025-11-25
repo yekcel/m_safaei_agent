@@ -13,14 +13,14 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 HF_TOKEN = os.getenv("HF_TOKEN")
 LANGFUSE_PUBLIC_KEY = os.getenv("LANGFUSE_PUBLIC_KEY")
 LANGFUSE_SECRET_KEY = os.getenv("LANGFUSE_SECRET_KEY")
-LANGFUSE_BASE_URL = os.getenv("LANGFUSE_BASE_URL")
+LANGFUSE_HOST = os.getenv("LANGFUSE_HOST")
 
 
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
 os.environ["HF_TOKEN"] = HF_TOKEN if HF_TOKEN else ""
 os.environ["LANGFUSE_PUBLIC_KEY"] = LANGFUSE_PUBLIC_KEY if LANGFUSE_PUBLIC_KEY else ""
 os.environ["LANGFUSE_SECRET_KEY"] = LANGFUSE_SECRET_KEY if LANGFUSE_SECRET_KEY else ""
-os.environ["LANGFUSE_BASE_URL"] = LANGFUSE_BASE_URL if LANGFUSE_BASE_URL else ""
+os.environ["LANGFUSE_HOST"] = LANGFUSE_HOST if LANGFUSE_HOST else ""
 
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
 SYSTEM_PROMPT_TEXT ="""
@@ -156,6 +156,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
