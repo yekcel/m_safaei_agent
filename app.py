@@ -1,8 +1,6 @@
 import streamlit as st
 import os
 import logging
-import streamlit as st
-
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.core.node_parser import SentenceSplitter
@@ -12,17 +10,15 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING")
-LANGSMITH_ENDPOINT = os.getenv("LANGSMITH_ENDPOINT")
-LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
-LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT")
+LANGFUSE_PUBLIC_KEY = os.getenv("LANGFUSE_PUBLIC_KEY")
+LANGFUSE_SECRET_KEY = os.getenv("LANGFUSE_SECRET_KEY")
+LANGFUSE_BASE_URL = os.getenv("LANGFUSE_BASE_URL")
 
 
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY if GEMINI_API_KEY else ""
-os.environ["LANGSMITH_TRACING"] = LANGSMITH_TRACING if LANGSMITH_TRACING else ""
-os.environ["LANGSMITH_ENDPOINT"] = LANGSMITH_ENDPOINT if LANGSMITH_ENDPOINT else ""
-os.environ["LANGSMITH_API_KEY"] = LANGSMITH_API_KEY if LANGSMITH_API_KEY else ""
-os.environ["LANGSMITH_PROJECT"] = LANGSMITH_PROJECT if LANGSMITH_PROJECT else ""
+os.environ["LANGFUSE_PUBLIC_KEY"] = LANGFUSE_PUBLIC_KEY if LANGFUSE_PUBLIC_KEY else ""
+os.environ["LANGFUSE_SECRET_KEY"] = LANGFUSE_SECRET_KEY if LANGFUSE_SECRET_KEY else ""
+os.environ["LANGFUSE_BASE_URL"] = LANGFUSE_BASE_URL if LANGFUSE_BASE_URL else ""
 
 #os.environ["GEMINI_API_KEY"] = API_KEY_VALUE
 SYSTEM_PROMPT_TEXT ="""
@@ -45,11 +41,11 @@ def setup_rag_engine():
     try:
         if not os.getenv("GEMINI_API_KEY"):
             st.error("❌ Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
+            return None       
+        if not os.getenv("LANGFUSE_SECRET_KEY"):
+            st.error("❌ Error: LANGFUSE_SECRET_KEY not found in Streamlit Secrets. Tracing disabled.")
             return None
-        if os.getenv("LANGSMITH_TRACING") == "true" and not os.getenv("LANGSMITH_API_KEY"):
-            st.error("❌ Error: LANGSMITH_TRACING is enabled, but LANGSMITH_API_KEY not found in Secrets.") 
-            return None
-       
+        
         logger.info("STEP 1: Attempting to load documents from 'data' folder.")
         documents = SimpleDirectoryReader("data").load_data()
         logger.info(f"Loaded {len(documents)} documents successfully.")
@@ -158,6 +154,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
