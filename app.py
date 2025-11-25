@@ -5,6 +5,9 @@ from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from langfuse import get_client
+ 
+
 
 
 logging.basicConfig(level=logging.INFO)
@@ -48,7 +51,12 @@ def setup_rag_engine():
              logger.info(f"Langfuse Secret Key: Starts with {secret_key[:4]}... (Length: {len(secret_key)})")
         else:
              logger.error("Langfuse Secret Key IS MISSING in environment.")
-            
+        langfuse = get_client()
+        if langfuse.auth_check():
+            logger.info("Langfuse client is authenticated and ready!")        
+        else:
+             logger.info("Authentication failed. Please check your credentials and host.")   
+     
         if not os.getenv("GEMINI_API_KEY"):
             st.error("❌ Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
             return None       
@@ -164,6 +172,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
