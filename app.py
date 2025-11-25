@@ -41,6 +41,14 @@ def setup_rag_engine():
     st.info("Loading resume data and indexing...")
     logger.info("Starting RAG setup process...")
     try:
+        logger.info(f"Langfuse Public Key Status: {'Set' if os.getenv('LANGFUSE_PUBLIC_KEY') else 'NOT SET'}")
+        
+        secret_key = os.getenv('LANGFUSE_SECRET_KEY')
+        if secret_key:
+             logger.info(f"Langfuse Secret Key: Starts with {secret_key[:4]}... (Length: {len(secret_key)})")
+        else:
+             logger.error("Langfuse Secret Key IS MISSING in environment.")
+            
         if not os.getenv("GEMINI_API_KEY"):
             st.error("❌ Error: GEMINI_API_KEY not found in Streamlit Secrets. Please configure it.") 
             return None       
@@ -156,6 +164,7 @@ if query_engine:
             st.markdown(f"Source file: **{response.source_nodes[0].metadata.get('file_name', 'N/A')}**")
 else:
     st.warning("The RAG assistant could not be initialized due to an error. Please check your data folder and API key.")
+
 
 
 
